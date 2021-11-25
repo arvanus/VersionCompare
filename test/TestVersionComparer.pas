@@ -54,8 +54,13 @@ type
     [TestCase('TestF','2018.08.1C ,2018.08.1,>')]
     [TestCase('TestG','2018.08.1C ,2018.08.1A,>')]
     [TestCase('TestH','2018.08.C ,2018.08.1 ,>')]
-
     procedure TestComparerToString(const AValue1, AValue2: String;
+  _result: String);
+    [TestCase('Test1.2','2.0  ,2   ,>')]
+    [TestCase('Test2.2','2.A.0,2.A ,>')]
+    [TestCase('Test3.2','2.1.2,2.1 ,>')]
+    [TestCase('Test4.2','2.1,2.1.0 ,<')]
+    procedure TestComparerToStringNoPadWithZero(const AValue1, AValue2: String;
   _result: String);
   end;
 
@@ -80,6 +85,13 @@ procedure TestVC.TestComparerToString(const AValue1, AValue2: String;
   _result: String);
 begin
   Assert.AreEqual(CompareToString(versionCompare(AValue1, AValue2)), _result);
+end;
+
+procedure TestVC.TestComparerToStringNoPadWithZero(const AValue1,
+  AValue2: String; _result: String);
+begin
+  Assert.AreEqual(CompareToString(versionCompare(AValue1, AValue2, false)), _result);
+
 end;
 
 procedure TestVC.TestConverter(const compResult:integer;const verbose:String);
